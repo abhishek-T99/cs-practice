@@ -2,7 +2,7 @@ name: GitHub Auto-Commit
 
 on:
   schedule:
-    - cron: "10 10 * * *"  # Runs daily at 10 AM UTC (adjust for your time zone)
+    - cron: "25 10 * * *"  # Runs daily at 10 AM UTC (adjust for your time zone)
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
