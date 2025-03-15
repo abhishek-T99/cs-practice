@@ -12,21 +12,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Git remote origin
+        run: |
+          git remote remove origin  # Remove any existing origin (if any)
+          git remote add origin https://github.com/abhishek-T99/cs-practice.git
+
+      - name: Fetch remote branch
+        run: |
+          git fetch
+          
       - name: Check if commit exists today
         run: |
           LAST_COMMIT_DATE=$(git log -1 --format=%cd --date=format:'%Y-%m-%d')
           TODAY=$(date '+%Y-%m-%d')
+          echo "Last commit date: $LAST_COMMIT_DATE"
           if [[ "$LAST_COMMIT_DATE" == "$TODAY" ]]; then
-            echo "Commit already made today. Exiting..."
-            exit 0
+            echo "Commit already made today. Skipping auto-commit."
+            echo "commit_exists=true" >> $GITHUB_ENV
+          else
+            echo "commit_exists=false" >> $GITHUB_ENV
           fi
 
-      - name: Set up Git remote origin
-        run: |
-          git remote remove origin  # Remove any existing origin (if any)
-          git remote add origin https://github.com/abhishek-T99/cs-practice.git  # Add your remote URL
-
       - name: Make auto-commit
+        if: ${{ env.commit_exists != 'true' }}
         run: |
           echo "$(date)" > datelist.txt
           git config --global user.name "abhishek-T99"
