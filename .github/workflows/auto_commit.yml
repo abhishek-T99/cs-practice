@@ -24,7 +24,7 @@ jobs:
       - name: Check if commit exists today
         run: |
           LAST_COMMIT_DATE=$(git log -1 --format=%cd --date=format:'%Y-%m-%d')
-          TODAY=$(date -d "yesterday" '+%Y-%m-%d')
+          TODAY=$(date '+%Y-%m-%d')
           echo "Last commit date: $LAST_COMMIT_DATE"
           if [[ "$LAST_COMMIT_DATE" == "$TODAY" ]]; then
             echo "Commit already made today. Skipping auto-commit."
