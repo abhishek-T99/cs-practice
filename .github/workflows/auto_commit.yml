@@ -2,7 +2,7 @@ name: GitHub Auto-Commit
 
 on:
   schedule:
-    - cron: "55 10 * * *" 
+    - cron: "17 5 * * *" 
 
 jobs:
   commit:
