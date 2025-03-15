@@ -1,9 +1,9 @@
 name: GitHub Auto-Commit
 
 on:
-  schedule:
-    - cron: "27 5 * * *" 
   workflow_dispatch:
+  schedule:
+    - cron: "15 13 * * *" 
 
 jobs:
   commit:
