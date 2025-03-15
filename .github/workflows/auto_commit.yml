@@ -1,0 +1,31 @@
+name: GitHub Auto-Commit
+
+on:
+  schedule:
+    - cron: "10 10 * * *"  # Runs daily at 10 AM UTC (adjust for your time zone)
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+    #   - name: Check if commit exists today
+    #     run: |
+    #       LAST_COMMIT_DATE=$(git log -1 --format=%cd --date=format:'%Y-%m-%d')
+    #       TODAY=$(date '+%Y-%m-%d')
+    #       if [[ "$LAST_COMMIT_DATE" == "$TODAY" ]]; then
+    #         echo "Commit already made today. Exiting..."
+    #         exit 0
+    #       fi
+
+      - name: Make auto-commit
+        run: |
+          echo "$(date)" > datelist.txt
+          git config --global user.name "abhishek-T99"
+          git config --global user.email "timilsina.abhishek55@gmail.com"
+          git add datelist.txt
+          git commit -m "feat: Added today's date on log"
+          git push
